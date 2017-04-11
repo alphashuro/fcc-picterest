@@ -10,7 +10,14 @@ import { images } from './api';
 const Image = ({ title, url, userName, userImage, userId, id }) => (
 	<Card style={{ maxWidth: '23%', margin: 10 }}>
 		<CardMedia>
-			<img src={url} alt={title} width={350} height={300} />
+			<img
+				src={url}
+				alt={title}
+				width={350}
+				height={300}
+				onError={e =>
+					e.target.src = 'http://placehold.it/350x300?text=Placeholder'}
+			/>
 		</CardMedia>
 		<CardContent>
 			<Text type="headline">{title}</Text>
