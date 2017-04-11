@@ -93,4 +93,44 @@ export const images = {
 			});
 		});
 	},
+
+	like(key) {
+		const user = firebase.auth().currentUser;
+
+		if (!user) {
+			return;
+		}
+
+		return Observable.using(firebase.database, db => {
+			const userImageRef = db.ref(`users/${user.uid}/${key}`);
+			const imageRef = db.ref(`images/${key}`);
+
+			return Promise.all([
+				toggleLike(userImageRef, user.uid),
+				toggleLike(imageRef, user.uid),
+			]);
+		});
+	},
 };
+
+function toggleLike(imageRef, uid) {
+	return imageRef.transaction(function(image) {
+		if (image) {
+			if (image.likes && image.likes[uid]) {
+				image.likeCount--;
+				image.likes[uid] = null;
+			} else {
+				if (!image.likeCount) {
+					image.likeCount = 1;
+				} else {
+					image.likeCount++;
+				}
+				if (!image.likes) {
+					image.likes = {};
+				}
+				image.likes[uid] = true;
+			}
+		}
+		return image;
+	});
+}

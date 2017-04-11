@@ -6,8 +6,9 @@ import FavoriteIcon from 'material-ui-icons/Favorite';
 import Avatar from 'material-ui/Avatar';
 import DeleteIcon from 'material-ui-icons/Delete';
 import { images } from './api';
+import Badge from 'material-ui/Badge';
 
-const Image = ({ title, url, userName, userImage, userId, id }) => (
+const Image = ({ title, url, userName, userImage, userId, id, likeCount }) => (
 	<Card style={{ maxWidth: '23%', margin: 10 }}>
 		<CardMedia>
 			<img
@@ -27,8 +28,15 @@ const Image = ({ title, url, userName, userImage, userId, id }) => (
 			? <CardActions>
 					<Avatar alt={userName} src={userImage} />
 					<div style={{ flex: '1 1 auto' }} />
-					<IconButton>
-						<FavoriteIcon />
+					<IconButton
+						onClick={() =>
+							images.like(id).subscribe(console.log, console.error)}
+					>
+						{likeCount
+							? <Badge badgeContent={likeCount}>
+									<FavoriteIcon />
+								</Badge>
+							: <FavoriteIcon />}
 					</IconButton>
 				</CardActions>
 			: <CardActions>
