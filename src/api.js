@@ -56,6 +56,41 @@ export const images = {
 		return Observable.using(firebase.database, db =>
 			Observable.fromEvent(db.ref('images'), 'value'))
 			.map(s => s.val())
+			.filter(Boolean)
+			.map(images => {
+				Object.keys(images).forEach(k => images[k].key = k);
+				return images;
+			})
 			.map(Object.values);
+	},
+
+	getMine() {
+		return auth.changes
+			.filter(Boolean)
+			.map(u => u.uid)
+			.map(uid => firebase.database().ref('users').child(uid))
+			.flatMap(ref => Observable.fromEvent(ref, 'value'))
+			.map(s => s.val())
+			.filter(Boolean)
+			.map(images => {
+				Object.keys(images).forEach(k => images[k].key = k);
+				return images;
+			})
+			.map(Object.values);
+	},
+
+	remove(key) {
+		const user = firebase.auth().currentUser;
+
+		if (!user) {
+			return;
+		}
+
+		return Observable.using(firebase.database, db => {
+			return db.ref().update({
+				[`users/${user.uid}/${key}`]: null,
+				[`images/${key}`]: null,
+			});
+		});
 	},
 };

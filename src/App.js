@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { auth } from './api';
 import Nav from './Nav';
 import AllImages from './AllImages';
+import MyImages from './MyImages';
 
 const App = () => (
 	<MuiThemeProvider>
@@ -13,6 +14,7 @@ const App = () => (
 
 				<div style={{ margin: 100 }}>
 					<Route exact path="/" component={AllImages} />
+					<Route path="/mine" component={MyImages} />
 				</div>
 			</div>
 		</Router>

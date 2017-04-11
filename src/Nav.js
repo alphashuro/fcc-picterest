@@ -7,6 +7,7 @@ import Button from 'material-ui/Button';
 import Avatar from 'material-ui/Avatar';
 import { Menu, MenuItem } from 'material-ui/Menu';
 import AddImageButton from './AddImage';
+import { Link } from 'react-router-dom';
 
 class ProfileMenu extends Component {
 	state = {
@@ -62,8 +63,8 @@ class ProfileMenu extends Component {
 
 const SignedIn = ({ user }) => (
 	<div style={{ display: 'flex', alignItems: 'center' }}>
-		<Button contrast>All</Button>
-		<Button contrast>My Pics</Button>
+		<Link to="/"><Button contrast>All</Button></Link>
+		<Link to="/mine"><Button contrast>My Pics</Button></Link>
 		<AddImageButton contrast />
 		<Text colorInherit style={{ marginLeft: 20, marginRight: 20 }}>
 			{user.displayName}
