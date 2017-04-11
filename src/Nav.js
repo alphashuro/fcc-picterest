@@ -4,14 +4,22 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Text from 'material-ui/Text';
 import Button from 'material-ui/Button';
+import Avatar from 'material-ui/Avatar';
 
 const Nav = ({ user, signin }) => (
 	<AppBar>
 		<Toolbar>
 			<Text type="title" colorInherit style={{ flex: 1 }}>Picterest</Text>
-			<Button contrast onClick={signin}>
-				Sign in with twitter
-			</Button>
+			{user
+				? [
+						<Text colorInherit style={{ marginRight: 20 }}>
+							{user.displayName}
+						</Text>,
+						<Avatar alt={user.displayName} src={user.photoURL} />,
+					]
+				: <Button contrast onClick={signin}>
+						Sign in with twitter
+					</Button>}
 		</Toolbar>
 	</AppBar>
 );
