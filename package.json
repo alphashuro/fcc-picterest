@@ -8,6 +8,7 @@
   "dependencies": {
     "firebase": "3.7.5",
     "material-ui": "next",
+    "material-ui-icons": "next",
     "react": "15.5.3",
     "react-dom": "15.5.3",
     "react-router-dom": "4.1.0",

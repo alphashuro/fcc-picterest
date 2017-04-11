@@ -44,10 +44,18 @@ export const images = {
 					url,
 					userName: user.displayName,
 					userId: user.uid,
+					userImage: user.photoURL,
 				},
 			};
 
 			return db.ref().update(updates);
 		});
+	},
+
+	getAll() {
+		return Observable.using(firebase.database, db =>
+			Observable.fromEvent(db.ref('images'), 'value'))
+			.map(s => s.val())
+			.map(Object.values);
 	},
 };
