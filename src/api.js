@@ -22,3 +22,32 @@ export const auth = {
 	),
 	signout: Observable.using(firebase.auth, auth => auth.signOut()),
 };
+
+export const images = {
+	add({ title, url }) {
+		const user = firebase.auth().currentUser;
+
+		if (!user) {
+			return;
+		}
+
+		return Observable.using(firebase.database, db => {
+			const newImageId = db.ref().child('images').push().key;
+
+			const updates = {
+				[`users/${user.uid}/${newImageId}`]: {
+					title,
+					url,
+				},
+				[`images/${newImageId}`]: {
+					title,
+					url,
+					userName: user.displayName,
+					userId: user.uid,
+				},
+			};
+
+			return db.ref().update(updates);
+		});
+	},
+};

@@ -6,6 +6,7 @@ import Text from 'material-ui/Text';
 import Button from 'material-ui/Button';
 import Avatar from 'material-ui/Avatar';
 import { Menu, MenuItem } from 'material-ui/Menu';
+import AddImageButton from './AddImage';
 
 class ProfileMenu extends Component {
 	state = {
@@ -61,13 +62,13 @@ class ProfileMenu extends Component {
 
 const SignedIn = ({ user }) => (
 	<div style={{ display: 'flex', alignItems: 'center' }}>
-		<Button contrast key="1">All</Button>
-		<Button contrast key="2">My Pics</Button>
-		<Button contrast key="3">Add a Pic</Button>
-		<Text key="4" colorInherit style={{ marginLeft: 20, marginRight: 20 }}>
+		<Button contrast>All</Button>
+		<Button contrast>My Pics</Button>
+		<AddImageButton contrast />
+		<Text colorInherit style={{ marginLeft: 20, marginRight: 20 }}>
 			{user.displayName}
 		</Text>
-		<ProfileMenu key="5" user={user} />
+		<ProfileMenu user={user} />
 	</div>
 );
 
