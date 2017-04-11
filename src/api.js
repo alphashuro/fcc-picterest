@@ -20,4 +20,5 @@ export const auth = {
 			Observable.using(firebase.auth, auth =>
 				auth.signInWithPopup(provider))
 	),
+	signout: Observable.using(firebase.auth, auth => auth.signOut()),
 };
